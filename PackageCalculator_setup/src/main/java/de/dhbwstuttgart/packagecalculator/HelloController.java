@@ -150,6 +150,12 @@ public class HelloController {
             Stage stage = new Stage();
             stage.setTitle("Einstellungen");
             stage.setScene(new Scene(root));
+
+            // Hier wird der SettingsController geladen, um die CSV-Daten neu zu laden
+            SettingsController settingsController = fxmlLoader.getController();
+            settingsController.loadCsvData(); // CSV-Daten neu laden
+
+            // Zeige die Einstellungen an
             stage.show();
         } catch (IOException e) {
             e.printStackTrace();
