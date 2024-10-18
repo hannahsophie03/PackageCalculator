@@ -1,16 +1,40 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.geometry.Insets?>
+<?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.layout.VBox?>
-
+<?import javafx.scene.control.TextField?>
 <?import javafx.scene.control.Button?>
-<VBox alignment="CENTER" spacing="20.0" xmlns:fx="http://javafx.com/fxml"
-      fx:controller="de.dhbwstuttgart.packagecalculator.HelloController">
-  <padding>
-    <Insets bottom="20.0" left="20.0" right="20.0" top="20.0"/>
-  </padding>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.text.Text?>
 
-  <Label fx:id="welcomeText"/>
-  <Button text="Hello!" onAction="#onHelloButtonClick"/>
+<VBox xmlns:fx="http://javafx.com/fxml/1" fx:controller="de.dhbwstuttgart.packagecalculator.HelloController" spacing="10" alignment="TOP_CENTER">
+    <children>
+        <GridPane hgap="10" vgap="10">
+            <padding>
+                <Insets top="20" right="20" bottom="20" left="20"/>
+            </padding>
+
+            <!-- Eingabe für die Maße -->
+            <Label text="Höhe (cm):" GridPane.rowIndex="0" GridPane.columnIndex="0"/>
+            <TextField fx:id="heightField" promptText="z.B. 50" GridPane.rowIndex="0" GridPane.columnIndex="1"/>
+
+            <Label text="Breite (cm):" GridPane.rowIndex="1" GridPane.columnIndex="0"/>
+            <TextField fx:id="widthField" promptText="z.B. 30" GridPane.rowIndex="1" GridPane.columnIndex="1"/>
+
+            <Label text="Tiefe (cm):" GridPane.rowIndex="2" GridPane.columnIndex="0"/>
+            <TextField fx:id="depthField" promptText="z.B. 20" GridPane.rowIndex="2" GridPane.columnIndex="1"/>
+
+            <!-- Eingabe für das Gewicht -->
+            <Label text="Gewicht (kg):" GridPane.rowIndex="3" GridPane.columnIndex="0"/>
+            <TextField fx:id="weightField" promptText="z.B. 5" GridPane.rowIndex="3" GridPane.columnIndex="1"/>
+        </GridPane>
+
+        <!-- Berechnungs-Button -->
+        <Button text="Versandkosten berechnen" onAction="#onCalculateClicked" maxWidth="200"/>
+
+        <!-- Ergebnisanzeige -->
+        <Text fx:id="resultText" text="Ergebnis wird hier angezeigt" wrappingWidth="300"/>
+
+    </children>
 </VBox>
