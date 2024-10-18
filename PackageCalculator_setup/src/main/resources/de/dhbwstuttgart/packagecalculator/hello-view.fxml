@@ -10,100 +10,100 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.shape.Box?>
-<?import javafx.scene.PerspectiveCamera?>
-<?import javafx.scene.SubScene?>
-<?import javafx.scene.control.Slider?>
-<?import javafx.scene.control.Label?>
-<?import javafx.scene.control.TextField?>
-
-<?import javafx.scene.SubScene?>
-<AnchorPane prefHeight="860.0" prefWidth="1240.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="de.dhbwstuttgart.packagecalculator.HelloController">
-    <Rectangle arcHeight="5.0" arcWidth="5.0" height="57.0" stroke="BLACK" strokeType="INSIDE" width="1240.0" />
-
+<AnchorPane id="AnchorPane" fx:id="fx3DBox" prefHeight="860.0" prefWidth="1240.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="de.dhbwstuttgart.packagecalculator.HelloController">
     <!-- Header Bar -->
+    <Rectangle arcHeight="5.0" arcWidth="5.0" height="57.0" stroke="BLACK" strokeType="INSIDE" width="1240.0" />
     <Label layoutX="64.0" layoutY="17.0" style="-fx-text-fill: white; -fx-font-size: 18px;" text="Package Calculator" AnchorPane.leftAnchor="64.0" AnchorPane.topAnchor="17.0">
         <font>
             <Font size="17.0" />
-        </font></Label>
+        </font>
+    </Label>
     <Button layoutX="966.0" layoutY="14.0" onAction="#onSettingsClicked" text="Einstellungen" AnchorPane.rightAnchor="180.0" AnchorPane.topAnchor="14.0" />
 
     <!-- Gelbe Box für Paket-Maße und Paket-Gewicht -->
-    <BorderPane layoutX="53.0" layoutY="135.0" prefHeight="308.0" prefWidth="547.0" style="-fx-border-color: black; -fx-border-width: 2px; -fx-background-color: yellow; -fx-padding: 10;" AnchorPane.leftAnchor="53.0" AnchorPane.topAnchor="135.0">
+    <BorderPane layoutX="53.0" layoutY="135.0" prefHeight="308.0" prefWidth="547.0" style="-fx-border-color: black; -fx-border-width: 2px; -fx-background-color: yellow; -fx-padding: 10;">
         <top>
             <AnchorPane prefHeight="286.0" prefWidth="523.0" BorderPane.alignment="CENTER">
                 <!-- Label Paket-Maße -->
                 <Label style="-fx-font-weight: bold; -fx-font-size: 20px;" text="Paket-Maße" AnchorPane.leftAnchor="10" AnchorPane.topAnchor="10" />
-
                 <Label text="Höhe (cm):" AnchorPane.leftAnchor="10" AnchorPane.topAnchor="50">
                     <font>
                         <Font size="20.0" />
-                    </font></Label>
-                <TextField fx:id="heightField" layoutX="134.0" layoutY="52.0" promptText="z.B. 50" AnchorPane.leftAnchor="134.0" AnchorPane.topAnchor="52.0" />
+                    </font>
+                </Label>
+                <TextField fx:id="heightField" layoutX="134.0" layoutY="50" promptText="z.B. 50" AnchorPane.leftAnchor="134.0" AnchorPane.topAnchor="52.0" />
 
                 <Label text="Breite (cm):" AnchorPane.leftAnchor="10" AnchorPane.topAnchor="90">
                     <font>
                         <Font size="20.0" />
-                    </font></Label>
-                <TextField fx:id="widthField" layoutX="134.0" layoutY="86.0" promptText="z.B. 30" AnchorPane.leftAnchor="134.0" AnchorPane.topAnchor="86.0" />
+                    </font>
+                </Label>
+                <TextField fx:id="widthField" layoutX="134.0" layoutY="90" promptText="z.B. 30" AnchorPane.leftAnchor="134.0" AnchorPane.topAnchor="86.0" />
 
                 <Label text="Tiefe (cm):" AnchorPane.leftAnchor="10" AnchorPane.topAnchor="130">
                     <font>
                         <Font size="20.0" />
-                    </font></Label>
-                <TextField fx:id="depthField" layoutX="134.0" layoutY="126.0" promptText="z.B. 20" AnchorPane.leftAnchor="134.0" AnchorPane.topAnchor="126.0" />
+                    </font>
+                </Label>
+                <TextField fx:id="depthField" layoutX="134.0" layoutY="130" promptText="z.B. 20" AnchorPane.leftAnchor="134.0" AnchorPane.topAnchor="126.0" />
 
                 <!-- Label Paket-Gewicht -->
                 <Label style="-fx-font-weight: bold; -fx-font-size: 20px;" text="Paket-Gewicht" AnchorPane.leftAnchor="10" AnchorPane.topAnchor="170" />
-
                 <Label text="Gewicht:" AnchorPane.leftAnchor="10" AnchorPane.topAnchor="210">
                     <font>
                         <Font size="20.0" />
-                    </font></Label>
-                <TextField fx:id="weightField" layoutX="134.0" layoutY="212.0" promptText="z.B. 5" AnchorPane.leftAnchor="134.0" AnchorPane.topAnchor="212.0" />
+                    </font>
+                </Label>
+                <TextField fx:id="weightField" layoutX="134.0" layoutY="210" promptText="z.B. 5" AnchorPane.leftAnchor="134.0" AnchorPane.topAnchor="212.0" />
 
                 <!-- Berechnungs-Button -->
                 <Button layoutX="319.0" layoutY="14.0" maxWidth="182.0" onAction="#onCalculateClicked" prefHeight="40.0" prefWidth="182.0" text="Berechnen" AnchorPane.leftAnchor="319.0" AnchorPane.topAnchor="14.0">
                     <font>
                         <Font size="22.0" />
-                    </font></Button>
-                <CheckBox fx:id="gramsCheckBox" layoutX="319.0" layoutY="204.0" mnemonicParsing="false" text="g" />
-                <CheckBox fx:id="kilogramsCheckBox" layoutX="319.0" layoutY="227.0" mnemonicParsing="false" text="kg" />
+                    </font>
+                </Button>
+                <CheckBox fx:id="gramsCheckBox" layoutX="319.0" layoutY="204.0" text="g" AnchorPane.leftAnchor="319.0" AnchorPane.topAnchor="204.0" />
+                <CheckBox fx:id="kilogramsCheckBox" layoutX="319.0" layoutY="227.0" text="kg" AnchorPane.leftAnchor="319.0" AnchorPane.topAnchor="227.0" />
             </AnchorPane>
         </top>
     </BorderPane>
 
     <!-- Grüne Box für die Ausgabe des besten Versanddienstleisters -->
-    <BorderPane layoutX="53.0" layoutY="496.0" prefHeight="156.0" prefWidth="547.0" style="-fx-border-color: black; -fx-border-width: 2px; -fx-background-color: lightgreen; -fx-padding: 10;" AnchorPane.leftAnchor="53.0" AnchorPane.topAnchor="496.0">
+    <BorderPane layoutX="620.0" layoutY="135.0" prefHeight="310.0" prefWidth="547.0" style="-fx-border-color: black; -fx-border-width: 2px; -fx-background-color: lightgreen; -fx-padding: 10;">
         <bottom>
             <AnchorPane prefHeight="132.0" prefWidth="559.0" BorderPane.alignment="CENTER">
-                <!-- Label Beste Versand-Option -->
-                <Label style="-fx-font-weight: bold; -fx-font-size: 20px;" text="Beste Versand-Option:" AnchorPane.leftAnchor="10" AnchorPane.topAnchor="10">
-                    <font>
-                        <Font size="15.0" />
-                    </font>
-                </Label>
-
-                <!-- Preis Ausgabe -->
-                <Text fx:id="priceText" text="Preis wird hier angezeigt  €" wrappingWidth="300" AnchorPane.leftAnchor="10" AnchorPane.topAnchor="50">
-                    <font>
-                        <Font size="22.0" />
-                    </font>
-                </Text>
 
                 <!-- Dienstleister Ausgabe -->
-                <Text fx:id="resultText" text="Angebot von: [Dienstleister]" wrappingWidth="300" AnchorPane.leftAnchor="10" AnchorPane.topAnchor="90">
+                <Text fx:id="resultText" layoutX="99.0" layoutY="24.0" text="Angebot von: [Dienstleister]" wrappingWidth="300" AnchorPane.leftAnchor="99.0" AnchorPane.topAnchor="0.259765625">
                     <font>
                         <Font size="22.0" />
                     </font>
                 </Text>
-
-
-
             </AnchorPane>
         </bottom>
+      <top>
+             <!-- Label Beste Versand-Option -->
+             <Label style="-fx-font-weight: bold; -fx-font-size: 20px;" text="Beste Versand-Option:" BorderPane.alignment="CENTER">
+                 <font>
+                     <Font size="15.0" />
+                 </font>
+             </Label>
+      </top>
+      <center>
+
+             <!-- Preis Ausgabe -->
+             <Text fx:id="priceText" text="Preis wird hier angezeigt  €" wrappingWidth="300" BorderPane.alignment="CENTER">
+                 <font>
+                     <Font size="22.0" />
+                 </font>
+             </Text>
+      </center>
     </BorderPane>
+
+
+   <Rectangle fx:id="rectangle" arcHeight="5.0" arcWidth="5.0" fill="#b98c44" height="213.0" layoutX="359.0" layoutY="515.0" stroke="BLACK" strokeType="INSIDE" width="523.0" />
+     
+
 
 
 </AnchorPane>

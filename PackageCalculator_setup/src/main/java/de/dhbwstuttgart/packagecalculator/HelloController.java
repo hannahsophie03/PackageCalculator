@@ -4,33 +4,24 @@ import calculation.ShippingService;
 import javafx.fxml.FXML;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.TextField;
+import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Text;
 
-import javafx.scene.*;
-
-import javafx.scene.paint.Color;
-import javafx.scene.paint.PhongMaterial;
-import javafx.scene.shape.Box;
-
-import javafx.scene.transform.Rotate;
-import javafx.scene.transform.Translate;
 import java.io.IOException;
-
-
 
 public class HelloController {
 
     @FXML
-    private TextField heightField;
+    private TextField heightField;  // Dieses Feld wird sowohl für das Rechteck als auch für die Paketberechnung verwendet
 
     @FXML
-    private TextField widthField;
+    private TextField widthField;   // Dieses Feld wird ebenfalls wiederverwendet
 
     @FXML
-    private TextField depthField;
+    private TextField depthField;   // Für die Paketberechnung
 
     @FXML
-    private TextField weightField;
+    private TextField weightField;  // Für die Paketberechnung
 
     @FXML
     private CheckBox gramsCheckBox;
@@ -44,35 +35,24 @@ public class HelloController {
     @FXML
     private Text priceText;
 
+    @FXML
+    private Rectangle rectangle;  // Rechteck, dessen Größe dynamisch angepasst wird
 
-        // Methode wird aufgerufen, wenn auf den Button "Berechnen" geklickt wird
+    // Methode, die beim Klick auf den "Berechnen"-Button aufgerufen wird
     @FXML
     protected void onCalculateClicked() {
         try {
-            // Eingabewerte für Höhe, Breite und Tiefe abrufen (Maße in cm)
+            // Eingabewerte für Höhe und Breite abrufen (sowohl für das Rechteck als auch für die Paketberechnung)
             double height = Double.parseDouble(heightField.getText());
             double width = Double.parseDouble(widthField.getText());
             double depth = Double.parseDouble(depthField.getText());
             double weight = Double.parseDouble(weightField.getText());  // Eingegebenes Gewicht
-
-
-
 
             // Überprüfen, ob eine Gewichtseinheit (g oder kg) ausgewählt wurde
             boolean isGramsSelected = gramsCheckBox.isSelected();
             boolean isKilogramsSelected = kilogramsCheckBox.isSelected();
 
             // Überprüfung und Print Statements
-            if (isGramsSelected) {
-                System.out.println("Gramm wurde ausgewählt.");
-            }
-            if (isKilogramsSelected) {
-                System.out.println("Kilogramm wurde ausgewählt.");
-            }
-
-
-
-
             if (!isGramsSelected && !isKilogramsSelected) {
                 resultText.setText("Bitte wählen Sie eine Gewichtseinheit (g oder kg) aus.");
                 return;
@@ -94,6 +74,15 @@ public class HelloController {
             } else {
                 resultText.setText(result[0]);
                 priceText.setText("");  // Preisfeld leeren, wenn kein Dienstleister gefunden wurde
+            }
+
+            // Dynamische Anpassung des Rechtecks basierend auf den Eingabewerten für Breite und Höhe
+            if (width > 0 && height > 0) {
+                rectangle.setWidth(width);
+                rectangle.setHeight(height);
+                resultText.setText("Das Rechteck wurde auf die neuen Maße angepasst.");
+            } else {
+                resultText.setText("Bitte geben Sie positive Werte für Breite und Höhe ein.");
             }
 
         } catch (NumberFormatException e) {
