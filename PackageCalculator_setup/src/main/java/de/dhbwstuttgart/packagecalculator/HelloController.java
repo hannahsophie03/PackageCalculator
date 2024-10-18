@@ -6,7 +6,17 @@ import javafx.scene.control.CheckBox;
 import javafx.scene.control.TextField;
 import javafx.scene.text.Text;
 
+import javafx.scene.*;
+
+import javafx.scene.paint.Color;
+import javafx.scene.paint.PhongMaterial;
+import javafx.scene.shape.Box;
+
+import javafx.scene.transform.Rotate;
+import javafx.scene.transform.Translate;
 import java.io.IOException;
+
+
 
 public class HelloController {
 
@@ -34,7 +44,8 @@ public class HelloController {
     @FXML
     private Text priceText;
 
-    // Methode wird aufgerufen, wenn auf den Button "Berechnen" geklickt wird
+
+        // Methode wird aufgerufen, wenn auf den Button "Berechnen" geklickt wird
     @FXML
     protected void onCalculateClicked() {
         try {
