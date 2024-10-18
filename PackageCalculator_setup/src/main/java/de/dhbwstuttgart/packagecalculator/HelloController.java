@@ -12,6 +12,7 @@ import java.io.IOException;
 
 public class HelloController {
 
+    public Rectangle headerBar;
     @FXML
     private TextField heightField;  // Höhe des Pakets
 
