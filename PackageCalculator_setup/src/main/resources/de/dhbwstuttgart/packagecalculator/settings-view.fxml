@@ -7,12 +7,26 @@
 <?import javafx.scene.layout.*?>
 
 <AnchorPane xmlns:fx="http://javafx.com/fxml" fx:controller="de.dhbwstuttgart.packagecalculator.SettingsController">
-    <Label layoutX="50" layoutY="50" text="Einstellungen" />
 
-    <!-- Beispielhafte UI-Elemente für die Einstellungen -->
-    <Label layoutX="50" layoutY="100" text="Beispieloption:" />
-    <TextField layoutX="150" layoutY="100" promptText="Option eingeben"/>
+    <Label layoutX="50" layoutY="50" text="Dienstleister auswählen:" />
+    <ComboBox fx:id="serviceProviderComboBox" layoutX="200" layoutY="50" onAction="#onServiceProviderSelected" />
 
-    <Button layoutX="150" layoutY="150" text="Speichern" onAction="#onSaveClicked"/>
-    <Button layoutX="250" layoutY="150" text="Schließen" onAction="#onCloseClicked"/>
+    <Label layoutX="50" layoutY="100" text="Maximale Höhe (cm):" />
+    <TextField fx:id="maxHeightField" layoutX="200" layoutY="100" />
+
+    <Label layoutX="50" layoutY="140" text="Maximale Breite (cm):" />
+    <TextField fx:id="maxWidthField" layoutX="200" layoutY="140" />
+
+    <Label layoutX="50" layoutY="180" text="Maximale Tiefe (cm):" />
+    <TextField fx:id="maxDepthField" layoutX="200" layoutY="180" />
+
+    <Label layoutX="50" layoutY="220" text="Maximales Gewicht (kg):" />
+    <TextField fx:id="maxWeightField" layoutX="200" layoutY="220" />
+
+    <Label layoutX="50" layoutY="260" text="Preis pro kg (€):" />
+    <TextField fx:id="pricePerKgField" layoutX="200" layoutY="260" />
+
+    <Button layoutX="200" layoutY="300" text="Speichern" onAction="#onSaveClicked" />
+    <Button layoutX="300" layoutY="300" text="Schließen" onAction="#onCloseClicked" />
+
 </AnchorPane>
