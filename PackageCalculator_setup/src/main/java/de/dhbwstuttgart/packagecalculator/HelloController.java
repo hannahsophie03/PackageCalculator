@@ -125,6 +125,16 @@ public class HelloController {
         depthLabel.setLayoutY(rectangle.getLayoutY() + rectangle.getHeight() + 10);  // Unterhalb des Rechtecks
     }
 
+    // Methode, die beim Klick auf den "Zurücksetzen"-Button aufgerufen wird
+    @FXML
+    protected void onResetClicked() {
+        // Leert alle Eingabefelder
+        heightField.clear();
+        widthField.clear();
+        depthField.clear();
+        weightField.clear();
+    }
+
     // Reaktion auf den "Einstellungen"-Button
     @FXML
     protected void onSettingsClicked() {

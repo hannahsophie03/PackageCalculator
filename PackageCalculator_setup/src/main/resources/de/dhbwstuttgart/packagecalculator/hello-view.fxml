@@ -66,12 +66,15 @@
                 </Button>
                 <CheckBox fx:id="gramsCheckBox" layoutX="319.0" layoutY="204.0" text="g" AnchorPane.leftAnchor="319.0" AnchorPane.topAnchor="204.0" />
                 <CheckBox fx:id="kilogramsCheckBox" layoutX="319.0" layoutY="227.0" text="kg" AnchorPane.leftAnchor="319.0" AnchorPane.topAnchor="227.0" />
+
+                <!-- Zurücksetzen-Button -->
+                <Button layoutX="406.0" layoutY="65.0" onAction="#onResetClicked" text="Zurücksetzen" />
             </AnchorPane>
         </top>
     </BorderPane>
 
     <!-- Grüne Box für die Ausgabe des besten Versanddienstleisters -->
-    <BorderPane layoutX="620.0" layoutY="135.0" prefHeight="310.0" prefWidth="547.0" style="-fx-border-color: black; -fx-border-width: 2px; -fx-background-color: #92c592; -fx-padding: 10;">
+    <BorderPane layoutX="53.0" layoutY="469.0" prefHeight="310.0" prefWidth="547.0" style="-fx-border-color: black; -fx-border-width: 2px; -fx-background-color: #92c592; -fx-padding: 10;">
         <bottom>
             <AnchorPane prefHeight="132.0" prefWidth="559.0" BorderPane.alignment="CENTER">
 
@@ -103,12 +106,12 @@
     </BorderPane>
 
 
-   <Rectangle fx:id="rectangle" arcHeight="5.0" arcWidth="5.0" fill="#b98c44" height="213.0" layoutX="359.0" layoutY="515.0" stroke="BLACK" strokeType="INSIDE" width="523.0" />
+   <Rectangle fx:id="rectangle" arcHeight="5.0" arcWidth="5.0" fill="#b98c44" height="213.0" layoutX="732.0" layoutY="265.0" stroke="BLACK" strokeType="INSIDE" width="371.0" />
 
     <!-- Labels zum Anzeigen der aktuellen Maße des Pakets -->
-    <Label fx:id="widthLabel" layoutX="578.0" layoutY="740.0" text="Breite: ... cm" />
-    <Label fx:id="heightLabel" layoutX="258.0" layoutY="613.0" text="Höhe: ... cm" />
-    <Label fx:id="depthLabel" layoutX="894.0" layoutY="710.0" text="Tiefe: ... cm" />
+    <Label fx:id="widthLabel" layoutX="900.0" layoutY="488.0" text="Breite: ... cm" />
+    <Label fx:id="heightLabel" layoutX="650.0" layoutY="336.0" text="Höhe: ... cm" />
+    <Label fx:id="depthLabel" layoutX="1112.0" layoutY="460.0" text="Tiefe: ... cm" />
 
 
 
