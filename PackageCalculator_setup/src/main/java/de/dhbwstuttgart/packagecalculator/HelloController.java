@@ -27,6 +27,9 @@ public class HelloController {
     private Text resultText;
 
     @FXML
+    private Text priceText;  // Neues Textfeld für den Preis
+
+    @FXML
     protected void onCalculateClicked() {
         try {
             // Eingabewerte abrufen
@@ -55,15 +58,29 @@ public class HelloController {
 
             // Ergebnis anzeigen
             if (bestCarrier != null) {
-                resultText.setText(String.format("Der beste Dienstleister ist %s mit Kosten von %.2f €", bestCarrier.getName(), lowestCost));
+                // Setze den Preis in das Preis-Textfeld
+                priceText.setText(String.format("Preis: %.2f €", lowestCost));
+
+                // Setze den Dienstleister in das resultText-Textfeld
+                resultText.setText("Angebot von: " + bestCarrier.getName());
             } else {
                 resultText.setText("Kein Versanddienstleister kann dieses Paket versenden.");
+                priceText.setText("");  // Leere das Preisfeld, wenn kein Dienstleister gefunden wurde
             }
 
         } catch (NumberFormatException e) {
             resultText.setText("Bitte geben Sie gültige Zahlenwerte ein.");
+            priceText.setText("");  // Leere das Preisfeld bei Fehler
         } catch (IOException e) {
             resultText.setText("Fehler beim Laden der Konfigurationsdatei.");
+            priceText.setText("");  // Leere das Preisfeld bei Fehler
         }
+    }
+
+    // Reaktion auf den "Einstellungen"-Button
+    @FXML
+    protected void onSettingsClicked() {
+        // Logik für Einstellungen (z.B. ein neues Fenster öffnen oder Einstellungen anzeigen)
+        System.out.println("Einstellungen-Button wurde geklickt");
     }
 }
