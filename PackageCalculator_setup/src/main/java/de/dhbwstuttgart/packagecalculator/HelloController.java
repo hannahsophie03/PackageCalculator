@@ -6,22 +6,23 @@ import javafx.scene.control.CheckBox;
 import javafx.scene.control.TextField;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Text;
+import javafx.scene.control.Label;
 
 import java.io.IOException;
 
 public class HelloController {
 
     @FXML
-    private TextField heightField;  // Dieses Feld wird sowohl für das Rechteck als auch für die Paketberechnung verwendet
+    private TextField heightField;  // Höhe des Pakets
 
     @FXML
-    private TextField widthField;   // Dieses Feld wird ebenfalls wiederverwendet
+    private TextField widthField;   // Breite des Pakets
 
     @FXML
-    private TextField depthField;   // Für die Paketberechnung
+    private TextField depthField;   // Tiefe des Pakets
 
     @FXML
-    private TextField weightField;  // Für die Paketberechnung
+    private TextField weightField;  // Gewicht des Pakets
 
     @FXML
     private CheckBox gramsCheckBox;
@@ -38,11 +39,18 @@ public class HelloController {
     @FXML
     private Rectangle rectangle;  // Rechteck, dessen Größe dynamisch angepasst wird
 
+    @FXML
+    private Label widthLabel;     // Label zur Anzeige der aktuellen Breite des Pakets
+    @FXML
+    private Label heightLabel;    // Label zur Anzeige der aktuellen Höhe des Pakets
+    @FXML
+    private Label depthLabel;     // Label zur Anzeige der aktuellen Tiefe des Pakets
+
     // Methode, die beim Klick auf den "Berechnen"-Button aufgerufen wird
     @FXML
     protected void onCalculateClicked() {
         try {
-            // Eingabewerte für Höhe und Breite abrufen (sowohl für das Rechteck als auch für die Paketberechnung)
+            // Eingabewerte für Höhe, Breite und Tiefe abrufen (sowohl für das Rechteck als auch für die Paketberechnung)
             double height = Double.parseDouble(heightField.getText());
             double width = Double.parseDouble(widthField.getText());
             double depth = Double.parseDouble(depthField.getText());
@@ -52,7 +60,6 @@ public class HelloController {
             boolean isGramsSelected = gramsCheckBox.isSelected();
             boolean isKilogramsSelected = kilogramsCheckBox.isSelected();
 
-            // Überprüfung und Print Statements
             if (!isGramsSelected && !isKilogramsSelected) {
                 resultText.setText("Bitte wählen Sie eine Gewichtseinheit (g oder kg) aus.");
                 return;
@@ -63,11 +70,11 @@ public class HelloController {
                 return;
             }
 
-            // Logik in den ShippingService auslagern
+            // Versandlogik an ShippingService übergeben
             ShippingService shippingService = new ShippingService();
             String[] result = shippingService.calculateShipping(height, width, depth, weight, isGramsSelected, isKilogramsSelected);
 
-            // Ergebnis anzeigen
+            // Versand-Ergebnis anzeigen
             if (!result[0].equals("Ungültiges Gewicht") && !result[0].equals("Kein Versanddienstleister kann dieses Paket versenden")) {
                 priceText.setText("Preis: " + result[0]);
                 resultText.setText("Angebot von: " + result[1]);
@@ -80,7 +87,16 @@ public class HelloController {
             if (width > 0 && height > 0) {
                 rectangle.setWidth(width);
                 rectangle.setHeight(height);
-                resultText.setText("Das Rechteck wurde auf die neuen Maße angepasst.");
+
+                // Labels mit den eingegebenen Paketmaßen aktualisieren
+                widthLabel.setText("Breite: " + width + " cm");
+                heightLabel.setText("Höhe: " + height + " cm");
+                depthLabel.setText("Tiefe: " + depth + " cm");
+
+                // Positionierung der Labels an die entsprechenden Kanten des Rechtecks
+                adjustLabelPositions();
+
+                resultText.setText("Das Rechteck und die Paketmaße wurden angepasst.");
             } else {
                 resultText.setText("Bitte geben Sie positive Werte für Breite und Höhe ein.");
             }
@@ -92,6 +108,21 @@ public class HelloController {
             resultText.setText("Fehler beim Laden der Konfigurationsdatei.");
             priceText.setText("");  // Preisfeld leeren bei Fehler
         }
+    }
+
+    // Methode zur dynamischen Anpassung der Label-Positionen an den Kanten des Rechtecks
+    private void adjustLabelPositions() {
+        // Positioniere das Breiten-Label über dem Rechteck
+        widthLabel.setLayoutX(rectangle.getLayoutX() + rectangle.getWidth() / 2 - widthLabel.getWidth() / 2);
+        widthLabel.setLayoutY(rectangle.getLayoutY() - 20);  // Oberhalb des Rechtecks
+
+        // Positioniere das Höhen-Label rechts neben dem Rechteck
+        heightLabel.setLayoutX(rectangle.getLayoutX() + rectangle.getWidth() + 10);  // Rechts vom Rechteck
+        heightLabel.setLayoutY(rectangle.getLayoutY() + rectangle.getHeight() / 2 - heightLabel.getHeight() / 2);
+
+        // Positioniere das Tiefen-Label unter dem Rechteck
+        depthLabel.setLayoutX(rectangle.getLayoutX() + rectangle.getWidth() / 2 - depthLabel.getWidth() / 2);
+        depthLabel.setLayoutY(rectangle.getLayoutY() + rectangle.getHeight() + 10);  // Unterhalb des Rechtecks
     }
 
     // Reaktion auf den "Einstellungen"-Button

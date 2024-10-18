@@ -102,7 +102,11 @@
 
 
    <Rectangle fx:id="rectangle" arcHeight="5.0" arcWidth="5.0" fill="#b98c44" height="213.0" layoutX="359.0" layoutY="515.0" stroke="BLACK" strokeType="INSIDE" width="523.0" />
-     
+
+    <!-- Labels zum Anzeigen der aktuellen Maße des Pakets -->
+    <Label fx:id="widthLabel" text="Breite: 100 cm" />
+    <Label fx:id="heightLabel" text="Höhe: 100 cm" />
+    <Label fx:id="depthLabel" text="Tiefe: 50 cm" />
 
 
 
