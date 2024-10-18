@@ -96,7 +96,6 @@ public class HelloController {
                 // Positionierung der Labels an die entsprechenden Kanten des Rechtecks
                 adjustLabelPositions();
 
-                resultText.setText("Das Rechteck und die Paketmaße wurden angepasst.");
             } else {
                 resultText.setText("Bitte geben Sie positive Werte für Breite und Höhe ein.");
             }
