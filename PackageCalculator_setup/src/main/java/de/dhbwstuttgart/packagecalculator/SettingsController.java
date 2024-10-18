@@ -33,7 +33,7 @@ public class SettingsController {
     @FXML
     public void initialize() {
         // CSV-Datei einlesen (überprüfe den Pfad zur Datei)
-        serviceDataList = de.dhbwstuttgart.packagecalculator.CsvReader.readCsv("/config.csv");
+        serviceDataList = CsvReader.readCsv("/de/dhbwstuttgart/packagecalculator/config.csv");
 
         // Fülle die Dienstleister in die ComboBox, wenn die Datei erfolgreich geladen wurde
         if (!serviceDataList.isEmpty()) {
@@ -63,10 +63,11 @@ public class SettingsController {
 
     @FXML
     protected void onSaveClicked() {
-        // Speichern der geänderten Werte (optional: zurück in CSV schreiben)
+        // Speichern der geänderten Werte
         String selectedService = serviceProviderComboBox.getValue();
         for (Map<String, String> serviceData : serviceDataList) {
             if (serviceData.get("Name").equals(selectedService)) {
+                // Aktualisiere die Werte in der Liste
                 serviceData.put("MaxHeight", maxHeightField.getText());
                 serviceData.put("MaxWidth", maxWidthField.getText());
                 serviceData.put("MaxDepth", maxDepthField.getText());
@@ -74,6 +75,11 @@ public class SettingsController {
                 serviceData.put("PricePerKg", pricePerKgField.getText());
             }
         }
+
+        // Schreibe die aktualisierten Werte in die CSV-Datei
+        // Der Pfad zur CSV-Datei
+        String filePath = "C:\\Users\\escherh\\DHBW\\PackageCalculator\\PackageCalculator_setup\\src\\main\\resources\\de\\dhbwstuttgart\\packagecalculator\\config.csv";
+        CsvReader.writeCsv(filePath, serviceDataList);
         System.out.println("Einstellungen gespeichert für: " + selectedService);
     }
 

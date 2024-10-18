@@ -6,7 +6,7 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane xmlns:fx="http://javafx.com/fxml" fx:controller="de.dhbwstuttgart.packagecalculator.SettingsController">
+<AnchorPane xmlns:fx="http://javafx.com/fxml" fx:controller="de.dhbwstuttgart.packagecalculator.SettingsController" prefHeight="860.0" prefWidth="1240.0">
 
     <Label layoutX="50" layoutY="50" text="Dienstleister auswählen:" />
     <ComboBox fx:id="serviceProviderComboBox" layoutX="200" layoutY="50" onAction="#onServiceProviderSelected" />

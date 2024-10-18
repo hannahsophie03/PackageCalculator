@@ -9,7 +9,7 @@ import java.util.List;
 
 public class ConfigManager {
 
-    private static final String CONFIG_FILE_PATH = "/config.csv";  // Pfad relativ zu resources/
+    private static final String CONFIG_FILE_PATH = "/de/dhbwstuttgart/packagecalculator/config.csv";  // Pfad relativ zu resources/
 
     public List<Carrier> ladeDienstleister() throws IOException {
         List<Carrier> carriers = new ArrayList<>();
