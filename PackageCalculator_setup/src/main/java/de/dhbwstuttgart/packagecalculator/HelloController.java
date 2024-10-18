@@ -2,11 +2,15 @@ package de.dhbwstuttgart.packagecalculator;
 
 import calculation.ShippingService;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.TextField;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Text;
 import javafx.scene.control.Label;
+import javafx.stage.Stage;
 
 import java.io.IOException;
 
@@ -135,9 +139,20 @@ public class HelloController {
         weightField.clear();
     }
 
-    // Reaktion auf den "Einstellungen"-Button
     @FXML
     protected void onSettingsClicked() {
-        System.out.println("Einstellungen-Button wurde geklickt");
+        try {
+            // Lade die neue FXML-Datei für die Einstellungen
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("settings-view.fxml"));
+            Parent root = fxmlLoader.load();
+
+            // Erstelle eine neue Bühne (Stage) für die Einstellungen
+            Stage stage = new Stage();
+            stage.setTitle("Einstellungen");
+            stage.setScene(new Scene(root));
+            stage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 }

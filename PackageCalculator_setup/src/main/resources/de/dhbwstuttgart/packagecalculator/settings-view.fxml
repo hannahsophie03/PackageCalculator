@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane xmlns:fx="http://javafx.com/fxml" fx:controller="de.dhbwstuttgart.packagecalculator.SettingsController">
+    <Label layoutX="50" layoutY="50" text="Einstellungen" />
+
+    <!-- Beispielhafte UI-Elemente für die Einstellungen -->
+    <Label layoutX="50" layoutY="100" text="Beispieloption:" />
+    <TextField layoutX="150" layoutY="100" promptText="Option eingeben"/>
+
+    <Button layoutX="150" layoutY="150" text="Speichern" onAction="#onSaveClicked"/>
+    <Button layoutX="250" layoutY="150" text="Schließen" onAction="#onCloseClicked"/>
+</AnchorPane>
