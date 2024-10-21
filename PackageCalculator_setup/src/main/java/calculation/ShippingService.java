@@ -38,7 +38,7 @@ public class ShippingService {
 
         // Dienstleister laden
         ConfigManager configManager = new ConfigManager();
-        List<Carrier> carriers = configManager.ladeDienstleister();
+        List<Carrier> carriers = configManager.loadCarrier();
 
         // Günstigsten Dienstleister finden
         Carrier bestCarrier = null;
@@ -46,7 +46,7 @@ public class ShippingService {
 
         for (Carrier carrier : carriers) {
             if (carrier.canShip(height, width, depth, weight)) {  // Maße in cm, Gewicht in kg
-                double cost = carrier.berechnePreis(weight);
+                double cost = carrier.calculatePrice(weight);
                 if (cost < lowestCost) {
                     lowestCost = cost;
                     bestCarrier = carrier;

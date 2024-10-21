@@ -1,12 +1,14 @@
 package de.dhbwstuttgart.packagecalculator;
 
 import calculation.ShippingService;
+import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.TextField;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Text;
 import javafx.scene.control.Label;
@@ -142,23 +144,48 @@ public class HelloController {
     @FXML
     protected void onSettingsClicked() {
         try {
-            // Lade die neue FXML-Datei für die Einstellungen
-            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("settings-view.fxml"));
-            Parent root = fxmlLoader.load();
+            // Lade das FXML für die Einstellungsseite
+            Parent root = FXMLLoader.load(getClass().getResource("settings-view.fxml"));
 
-            // Erstelle eine neue Bühne (Stage) für die Einstellungen
-            Stage stage = new Stage();
-            stage.setTitle("Einstellungen");
-            stage.setScene(new Scene(root));
+            // Erstelle ein neues Einstellungsfenster
+            Stage settingsStage = new Stage();
+            settingsStage.setTitle("Einstellungen");
 
-            // Hier wird der SettingsController geladen, um die CSV-Daten neu zu laden
-            SettingsController settingsController = fxmlLoader.getController();
-            settingsController.loadCsvData(); // CSV-Daten neu laden
+            Scene settingsScene = new Scene(root);
+            settingsStage.setScene(settingsScene);
 
-            // Zeige die Einstellungen an
-            stage.show();
+            // Setze den Vollbildmodus für das Einstellungsfenster
+            settingsStage.setFullScreen(true);
+            settingsStage.setFullScreenExitHint("");  // Entfernt den Hinweis zum Verlassen des Vollbildmodus
+            settingsStage.setFullScreenExitKeyCombination(null);  // Verhindert das Beenden des Vollbildmodus mit ESC
+
+            // Stelle sicher, dass nach dem Schließen des Einstellungsfensters das Hauptfenster im Vollbild bleibt
+            settingsStage.setOnHidden(event -> {
+                Stage primaryStage = (Stage) fx3DBox.getScene().getWindow();
+                primaryStage.setFullScreen(true);
+            });
+
+            settingsStage.show();
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+
+    // Verknüpfe die AnchorPane mit fx:id
+    @FXML
+    private AnchorPane fx3DBox;
+
+    // Methode zum Setzen der Höhe und Breite
+    public void set3DBoxSize(double width, double height) {
+        fx3DBox.setPrefWidth(width);
+        fx3DBox.setPrefHeight(height);
+    }
+
+    @FXML
+    protected void onCloseClicked() {
+        // Schließt die Anwendung
+        Platform.exit();
+        System.exit(0);  // Optional: Beendet die JVM vollständig
     }
 }

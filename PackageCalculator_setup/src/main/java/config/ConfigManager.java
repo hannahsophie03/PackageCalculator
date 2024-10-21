@@ -11,7 +11,7 @@ public class ConfigManager {
 
     private static final String CONFIG_FILE_PATH = "/de/dhbwstuttgart/packagecalculator/config.csv";  // Pfad relativ zu resources/
 
-    public List<Carrier> ladeDienstleister() throws IOException {
+    public List<Carrier> loadCarrier() throws IOException {
         List<Carrier> carriers = new ArrayList<>();
 
         // Lade die CSV-Datei als Ressource

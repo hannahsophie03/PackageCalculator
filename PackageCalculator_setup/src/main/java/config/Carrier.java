@@ -24,7 +24,7 @@ public class Carrier {
         return height <= maxHeight && width <= maxWidth && depth <= maxDepth && weight <= maxWeight;
     }
 
-    public double berechnePreis(double weight) {
+    public double calculatePrice(double weight) {
         return weight * pricePerKg;
     }
 }

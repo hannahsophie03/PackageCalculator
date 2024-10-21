@@ -111,6 +111,7 @@
     <Label fx:id="widthLabel" layoutX="900.0" layoutY="488.0" text="Breite: ... cm" />
     <Label fx:id="heightLabel" layoutX="650.0" layoutY="336.0" text="Höhe: ... cm" />
     <Label fx:id="depthLabel" layoutX="1112.0" layoutY="460.0" text="Tiefe: ... cm" />
+   <Button layoutX="1092.0" layoutY="14.0" mnemonicParsing="false" text="Schließen" textFill="RED" onAction="#onCloseClicked" />
 
 
 
