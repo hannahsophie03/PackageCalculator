@@ -1,6 +1,7 @@
 
 package de.dhbwstuttgart.packagecalculator;
 
+import config.CsvReader;
 import javafx.fxml.FXML;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextArea;
@@ -39,10 +40,6 @@ public class SettingsController {
     private List<Map<String, String>> serviceDataList;
 
 
-    // Pfad zur CSV-Datei
-    private final String filePath = "C:\\Users\\escherh\\DHBW\\PackageCalculator\\PackageCalculator_setup\\src\\main\\resources\\de\\dhbwstuttgart\\packagecalculator\\config.csv";
-
-
     @FXML
     public void initialize() {
         // CSV-Datei einlesen
@@ -58,7 +55,7 @@ public class SettingsController {
 
         // CSV-Datei einlesen (überprüfe den Pfad zur Datei)
         // CSV-Datei einlesen (überprüfe den Pfad zur Datei)
-        serviceDataList = CsvReader.readCsv("/de/dhbwstuttgart/packagecalculator/config.csv");
+        serviceDataList = CsvReader.readCsv("config.csv");
 
         // Fülle die Dienstleister in die ComboBox, wenn die Datei erfolgreich geladen wurde
         serviceProviderComboBox.getItems().clear();  // Entferne alte Einträge vor dem Neuladen
@@ -105,6 +102,8 @@ public class SettingsController {
         }
 
         // Schreibe die aktualisierten Werte in die CSV-Datei
+        // Pfad zur CSV-Datei
+        String filePath = "config.csv";
         CsvReader.writeCsv(filePath, serviceDataList);
         System.out.println("Einstellungen gespeichert für: " + selectedService);
 

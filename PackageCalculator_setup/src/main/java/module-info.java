@@ -13,4 +13,6 @@ module de.dhbwstuttgart.packagecalculator {
 
     opens de.dhbwstuttgart.packagecalculator to javafx.fxml;
     exports de.dhbwstuttgart.packagecalculator;
+    exports config;
+    opens config to javafx.fxml;
 }

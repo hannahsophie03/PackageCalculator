@@ -25,7 +25,7 @@
 
     <!-- Gelbe Box für Paket-Maße und Paket-Gewicht -->
     <BorderPane layoutX="53.0" layoutY="135.0" prefHeight="308.0" prefWidth="547.0" style="-fx-border-color: black; -fx-border-width: 2px; -fx-background-color: #fdd782; -fx-padding: 10;">
-        <top>
+      <right>
             <AnchorPane prefHeight="286.0" prefWidth="523.0" BorderPane.alignment="CENTER">
                 <!-- Label Paket-Maße -->
                 <Label style="-fx-font-weight: bold; -fx-font-size: 20px;" text="Paket-Maße" AnchorPane.leftAnchor="10" AnchorPane.topAnchor="10" />
@@ -71,7 +71,7 @@
                 <!-- Zurücksetzen-Button -->
                 <Button layoutX="406.0" layoutY="65.0" onAction="#onResetClicked" text="Zurücksetzen" />
             </AnchorPane>
-        </top>
+      </right>
     </BorderPane>
 
     <!-- Grüne Box für die Ausgabe des besten Versanddienstleisters -->
@@ -107,7 +107,7 @@
     </BorderPane>
 
 
-   <Rectangle fx:id="rectangle" arcHeight="5.0" arcWidth="5.0" fill="#b98c44" height="213.0" layoutX="732.0" layoutY="265.0" stroke="BLACK" strokeType="INSIDE" width="371.0" />
+   <Rectangle fx:id="rectangle" arcHeight="5.0" arcWidth="5.0" fill="#b98c44" height="213.0" layoutX="729.0" layoutY="160.0" stroke="BLACK" strokeType="INSIDE" width="371.0" />
 
     <!-- Log-Terminal mit ScrollPane -->
     <ScrollPane fx:id="logScrollPane" layoutX="618.0" layoutY="563.0" prefHeight="215.0" prefWidth="714.0">
@@ -116,9 +116,9 @@
 
 
     <!-- Labels zum Anzeigen der aktuellen Maße des Pakets -->
-    <Label fx:id="widthLabel" layoutX="900.0" layoutY="488.0" text="Breite: ... cm" />
-    <Label fx:id="heightLabel" layoutX="650.0" layoutY="336.0" text="Höhe: ... cm" />
-    <Label fx:id="depthLabel" layoutX="1112.0" layoutY="460.0" text="Tiefe: ... cm" />
+    <Label fx:id="widthLabel" layoutX="884.0" layoutY="380.0" text="Breite: ... cm" />
+    <Label fx:id="heightLabel" layoutX="646.0" layoutY="276.0" text="Höhe: ... cm" />
+    <Label fx:id="depthLabel" layoutX="1132.0" layoutY="367.0" text="Tiefe: ... cm" />
    <Button layoutX="1092.0" layoutY="14.0" mnemonicParsing="false" onAction="#onCloseClicked" text="Schließen" textFill="RED" />
 
 

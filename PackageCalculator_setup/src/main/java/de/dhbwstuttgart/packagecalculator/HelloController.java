@@ -102,11 +102,13 @@ public class HelloController {
                 priceText.setText("");  // Preisfeld leeren, wenn kein Dienstleister gefunden wurde
                 appendLog("Fehler: " + result[0] + "\n", "text-log-error");  // Log in rot
             }
+            // Skalierungsfaktor, um die Box größer darzustellen
+            double scaleFactor = 10.0;  // Erhöhe diesen Wert, um die Box größer zu machen
 
             // Dynamische Anpassung des Rechtecks basierend auf den Eingabewerten für Breite und Höhe
             if (width > 0 && height > 0) {
-                rectangle.setWidth(width);
-                rectangle.setHeight(height);
+                rectangle.setWidth(width * scaleFactor);
+                rectangle.setHeight(height * scaleFactor);
 
                 // Labels mit den eingegebenen Paketmaßen aktualisieren
                 widthLabel.setText("Breite: " + width + " cm");
@@ -157,9 +159,22 @@ public class HelloController {
         depthField.clear();
         weightField.clear();
 
-        // Log-Nachricht in grüner Farbe (Info)
-        appendLog("Eingabefelder zurückgesetzt.\n", "text-log-info");
+        // Setze das Rechteck auf die Standardmaße zurück (z.B. 100x100)
+        rectangle.setWidth(371);  // Setze die Breite des Rechtecks auf einen Standardwert
+        rectangle.setHeight(213);  // Setze die Höhe des Rechtecks auf einen Standardwert
+
+        // Aktualisiere die Labeltexte für die Standardmaße
+        widthLabel.setText("Breite: ... cm");
+        heightLabel.setText("Höhe: ... cm");
+        depthLabel.setText("Tiefe: ... cm");
+
+        // Setze die Position der Labels neu
+        adjustLabelPositions();
+
+        // Log hinzufügen
+        appendLog("Eingabefelder und Rechteck auf Standardmaße zurückgesetzt.\n", "text-log-info");
     }
+
 
 
     @FXML

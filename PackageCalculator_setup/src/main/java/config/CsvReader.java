@@ -1,4 +1,4 @@
-package de.dhbwstuttgart.packagecalculator;
+package config;
 
 import java.io.*;
 import java.util.ArrayList;
@@ -6,42 +6,47 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
 public class CsvReader {
 
+    // Methode zum Einlesen der CSV-Datei
     public static List<Map<String, String>> readCsv(String filePath) {
+
         List<Map<String, String>> serviceDataList = new ArrayList<>();
-        String line;
-        String[] headers = null;
 
-        try (InputStream inputStream = CsvReader.class.getResourceAsStream(filePath)) {
-            if (inputStream == null) {
-                // Datei wurde nicht gefunden
-                System.err.println("Die Datei " + filePath + " wurde nicht gefunden.");
-                return serviceDataList;
-            }
+        try (BufferedReader br = new BufferedReader(new FileReader(filePath))) {
+            String line;
 
-            // Datei wurde gefunden, starte das Lesen
-            BufferedReader br = new BufferedReader(new InputStreamReader(inputStream));
-
-            int lineNumber = 0;
             while ((line = br.readLine()) != null) {
-                String[] values = line.split(",");
+                // Spalte trennen nach Semikolon
+                String[] values = line.split(";");
 
-                // Erste Zeile enthält die Header (Spaltennamen)
-                if (lineNumber == 0) {
-                    headers = values;
-                } else {
-                    // Map für jede Zeile, die einen Dienstleister repräsentiert
+                // Überprüfen, ob die Anzahl der Werte korrekt ist (7 Felder pro Zeile)
+                if (values.length == 7) {
                     Map<String, String> serviceData = new HashMap<>();
-                    for (int i = 0; i < values.length; i++) {
-                        serviceData.put(headers[i], values[i]);
-                    }
+                    serviceData.put("Name", values[0]);
+                    serviceData.put("MaxHeight", values[1]);
+                    serviceData.put("MaxWidth", values[2]);
+                    serviceData.put("MaxDepth", values[3]);
+                    serviceData.put("MinWeight", values[4]);  // Neu: MinWeight
+                    serviceData.put("MaxWeight", values[5]);
+                    serviceData.put("Price", values[6]);
+
+                    // Füge die Map zur Liste hinzu
                     serviceDataList.add(serviceData);
+                } else {
+                    System.err.println("Ungültige Datenzeile: " + line);
                 }
-                lineNumber++;
             }
 
-        } catch (Exception e) {
+        } catch (IOException e) {
             e.printStackTrace();
         }
 
