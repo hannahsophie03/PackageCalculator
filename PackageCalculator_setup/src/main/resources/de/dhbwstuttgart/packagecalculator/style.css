@@ -1,0 +1,27 @@
+/* Hintergrund und Styling für das Log-Terminal */
+#logScrollPane {
+    -fx-background-color: #333;
+    -fx-border-color: #666;
+    -fx-border-radius: 2;
+    -fx-background-radius: 10;
+    -fx-padding: 2;
+}
+
+#logTextFlow {
+    -fx-background-color: transparent;
+}
+
+.text-log {
+    -fx-fill: white; /* Standardtextfarbe */
+    -fx-font-family: "Courier New", monospace;
+    -fx-font-size: 15px;
+}
+
+/* Farben für spezifische Log-Nachrichten */
+.text-log-info {
+    -fx-fill: #326c32; /* Grün für Info */
+}
+
+.text-log-error {
+    -fx-fill: #bd1010; /* Rot für Fehler */
+}

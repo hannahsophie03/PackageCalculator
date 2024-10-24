@@ -15,6 +15,7 @@ public class HelloApplication extends Application {
         primaryStage.setTitle("Versandkostenrechner");
 
         Scene scene = new Scene(root);
+        scene.getStylesheets().add(getClass().getResource("style.css").toExternalForm());
 
         // Setze den Vollbildmodus
         primaryStage.setFullScreen(true);
@@ -23,6 +24,7 @@ public class HelloApplication extends Application {
 
         primaryStage.setScene(scene);
         primaryStage.show();
+
     }
 
     public static void main(String[] args) {

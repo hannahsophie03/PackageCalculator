@@ -3,14 +3,16 @@
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.CheckBox?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.shape.Rectangle?>
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
+<?import javafx.scene.text.TextFlow?>
 
-<AnchorPane id="AnchorPane" fx:id="fx3DBox" prefHeight="860.0" prefWidth="1240.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="de.dhbwstuttgart.packagecalculator.HelloController">
+<AnchorPane id="AnchorPane" fx:id="fx3DBox" prefHeight="860.0" prefWidth="1422.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="de.dhbwstuttgart.packagecalculator.HelloController">
 
     <!-- Label "Package Calculator": Dynamisch auf der linken Seite positioniert -->
     <Label layoutY="17.0" style="-fx-text-fill: #000000; -fx-font-size: 18px;" text="Package Calculator" AnchorPane.leftAnchor="20.0" AnchorPane.topAnchor="17.0">
@@ -107,11 +109,19 @@
 
    <Rectangle fx:id="rectangle" arcHeight="5.0" arcWidth="5.0" fill="#b98c44" height="213.0" layoutX="732.0" layoutY="265.0" stroke="BLACK" strokeType="INSIDE" width="371.0" />
 
+    <!-- Log-Terminal mit ScrollPane -->
+    <ScrollPane fx:id="logScrollPane" layoutX="618.0" layoutY="563.0" prefHeight="215.0" prefWidth="714.0">
+        <TextFlow fx:id="logTextFlow" />
+    </ScrollPane>
+
+
     <!-- Labels zum Anzeigen der aktuellen Maße des Pakets -->
     <Label fx:id="widthLabel" layoutX="900.0" layoutY="488.0" text="Breite: ... cm" />
     <Label fx:id="heightLabel" layoutX="650.0" layoutY="336.0" text="Höhe: ... cm" />
     <Label fx:id="depthLabel" layoutX="1112.0" layoutY="460.0" text="Tiefe: ... cm" />
-   <Button layoutX="1092.0" layoutY="14.0" mnemonicParsing="false" text="Schließen" textFill="RED" onAction="#onCloseClicked" />
+   <Button layoutX="1092.0" layoutY="14.0" mnemonicParsing="false" onAction="#onCloseClicked" text="Schließen" textFill="RED" />
+
+
 
 
 

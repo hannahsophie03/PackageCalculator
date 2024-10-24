@@ -1,8 +1,11 @@
+
 package de.dhbwstuttgart.packagecalculator;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.ComboBox;
+import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
+import javafx.scene.text.TextFlow;
 import javafx.stage.Stage;
 
 import java.util.List;
@@ -10,6 +13,7 @@ import java.util.Map;
 
 public class SettingsController {
 
+    public TextFlow logTextFlow;
     @FXML
     private ComboBox<String> serviceProviderComboBox;
 
@@ -28,7 +32,12 @@ public class SettingsController {
     @FXML
     private TextField pricePerKgField;
 
+
+    @FXML
+    private TextArea logTextArea;  // Log-TextArea, um die Logs anzuzeigen
+
     private List<Map<String, String>> serviceDataList;
+
 
     // Pfad zur CSV-Datei
     private final String filePath = "C:\\Users\\escherh\\DHBW\\PackageCalculator\\PackageCalculator_setup\\src\\main\\resources\\de\\dhbwstuttgart\\packagecalculator\\config.csv";
@@ -40,8 +49,10 @@ public class SettingsController {
         loadCsvData();
     }
 
+
     // Methode zum Laden der CSV-Daten
     void loadCsvData() {
+
         // Debug-Ausgabe, um sicherzustellen, dass die Methode aufgerufen wird
         System.out.println("CSV-Daten werden geladen...");
 

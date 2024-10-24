@@ -6,12 +6,12 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.CheckBox;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Text;
-import javafx.scene.control.Label;
+import javafx.scene.text.TextFlow;
 import javafx.stage.Stage;
 
 import java.io.IOException;
@@ -19,6 +19,7 @@ import java.io.IOException;
 public class HelloController {
 
     public Rectangle headerBar;
+    public ScrollPane logScrollPane;
     @FXML
     private TextField heightField;  // Höhe des Pakets
 
@@ -53,15 +54,21 @@ public class HelloController {
     @FXML
     private Label depthLabel;     // Label zur Anzeige der aktuellen Tiefe des Pakets
 
-    // Methode, die beim Klick auf den "Berechnen"-Button aufgerufen wird
+    @FXML
+    private TextFlow logTextFlow;  // TextFlow für die Logs
+
     @FXML
     protected void onCalculateClicked() {
         try {
+            appendLog("Berechnung gestartet...\n", "text-log-info");
+
             // Eingabewerte für Höhe, Breite und Tiefe abrufen (sowohl für das Rechteck als auch für die Paketberechnung)
             double height = Double.parseDouble(heightField.getText());
             double width = Double.parseDouble(widthField.getText());
             double depth = Double.parseDouble(depthField.getText());
             double weight = Double.parseDouble(weightField.getText());  // Eingegebenes Gewicht
+
+            appendLog("Eingabewerte - Höhe: " + height + ", Breite: " + width + ", Tiefe: " + depth + ", Gewicht: " + weight + "\n", "text-log-info");
 
             // Überprüfen, ob eine Gewichtseinheit (g oder kg) ausgewählt wurde
             boolean isGramsSelected = gramsCheckBox.isSelected();
@@ -69,13 +76,17 @@ public class HelloController {
 
             if (!isGramsSelected && !isKilogramsSelected) {
                 resultText.setText("Bitte wählen Sie eine Gewichtseinheit (g oder kg) aus.");
+                appendLog("Fehler: Keine Gewichtseinheit ausgewählt.\n", "text-log-error");  // Log in rot
                 return;
             }
 
             if (isGramsSelected && isKilogramsSelected) {
                 resultText.setText("Bitte wählen Sie entweder g oder kg, nicht beide.");
+                appendLog("Fehler: Beide Gewichtseinheiten wurden ausgewählt.\n", "text-log-error");  // Log in rot
                 return;
             }
+
+            appendLog("Gewichtseinheit ausgewählt: " + (isGramsSelected ? "Gramm" : "Kilogramm") + "\n", "text-log-info");
 
             // Versandlogik an ShippingService übergeben
             ShippingService shippingService = new ShippingService();
@@ -85,9 +96,11 @@ public class HelloController {
             if (!result[0].equals("Ungültiges Gewicht") && !result[0].equals("Kein Versanddienstleister kann dieses Paket versenden")) {
                 priceText.setText("Preis: " + result[0]);
                 resultText.setText("Angebot von: " + result[1]);
+                appendLog("Berechnung abgeschlossen: Preis: " + result[0] + ", Dienstleister: " + result[1] + "\n", "text-log-info");
             } else {
                 resultText.setText(result[0]);
                 priceText.setText("");  // Preisfeld leeren, wenn kein Dienstleister gefunden wurde
+                appendLog("Fehler: " + result[0] + "\n", "text-log-error");  // Log in rot
             }
 
             // Dynamische Anpassung des Rechtecks basierend auf den Eingabewerten für Breite und Höhe
@@ -107,14 +120,19 @@ public class HelloController {
                 resultText.setText("Bitte geben Sie positive Werte für Breite und Höhe ein.");
             }
 
+
+
         } catch (NumberFormatException e) {
             resultText.setText("Bitte geben Sie gültige Zahlenwerte ein.");
             priceText.setText("");  // Preisfeld leeren bei Fehler
+            appendLog("Fehler: Ungültige Zahlenwerte eingegeben.\n", "text-log-error");  // Log in rot
         } catch (IOException e) {
             resultText.setText("Fehler beim Laden der Konfigurationsdatei.");
             priceText.setText("");  // Preisfeld leeren bei Fehler
+            appendLog("Fehler: Problem beim Laden der Konfigurationsdatei.\n", "text-log-error");  // Log in rot
         }
     }
+
 
     // Methode zur dynamischen Anpassung der Label-Positionen an den Kanten des Rechtecks
     private void adjustLabelPositions() {
@@ -131,7 +149,6 @@ public class HelloController {
         depthLabel.setLayoutY(rectangle.getLayoutY() + rectangle.getHeight() + 10);  // Unterhalb des Rechtecks
     }
 
-    // Methode, die beim Klick auf den "Zurücksetzen"-Button aufgerufen wird
     @FXML
     protected void onResetClicked() {
         // Leert alle Eingabefelder
@@ -139,13 +156,17 @@ public class HelloController {
         widthField.clear();
         depthField.clear();
         weightField.clear();
+
+        // Log-Nachricht in grüner Farbe (Info)
+        appendLog("Eingabefelder zurückgesetzt.\n", "text-log-info");
     }
+
 
     @FXML
     protected void onSettingsClicked() {
         try {
-            // Lade das FXML für die Einstellungsseite
-            Parent root = FXMLLoader.load(getClass().getResource("settings-view.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("settings-view.fxml"));
+            Parent root = loader.load();
 
             // Erstelle ein neues Einstellungsfenster
             Stage settingsStage = new Stage();
@@ -156,20 +177,37 @@ public class HelloController {
 
             // Setze den Vollbildmodus für das Einstellungsfenster
             settingsStage.setFullScreen(true);
-            settingsStage.setFullScreenExitHint("");  // Entfernt den Hinweis zum Verlassen des Vollbildmodus
-            settingsStage.setFullScreenExitKeyCombination(null);  // Verhindert das Beenden des Vollbildmodus mit ESC
+            settingsStage.setFullScreenExitHint("");
+            settingsStage.setFullScreenExitKeyCombination(null);
 
-            // Stelle sicher, dass nach dem Schließen des Einstellungsfensters das Hauptfenster im Vollbild bleibt
+
+            // Zeige das Einstellungsfenster
+            settingsStage.show();
+
+            // Stelle sicher, dass die Startseite nach dem Schließen der Einstellungen wieder im Vollbildmodus bleibt
             settingsStage.setOnHidden(event -> {
-                Stage primaryStage = (Stage) fx3DBox.getScene().getWindow();
+                Stage primaryStage = (Stage) heightField.getScene().getWindow();
                 primaryStage.setFullScreen(true);
             });
 
-            settingsStage.show();
+            appendLog("Einstellungsfenster geöffnet.\n", "text-log-info");
+
         } catch (IOException e) {
             e.printStackTrace();
+            appendLog("Fehler: Einstellungsfenster konnte nicht geöffnet werden.\n", "text-log-error");
         }
     }
+
+    // Methode zum Hinzufügen von Logs
+    private void appendLog(String message, String styleClass) {
+        Text logText = new Text(message);
+        logText.getStyleClass().addAll("text-log", styleClass);  // Wendet die Styles an
+        logTextFlow.getChildren().add(logText);
+
+        // Automatisches Scrollen nach unten
+        logScrollPane.setVvalue(1.0);
+    }
+
 
 
     // Verknüpfe die AnchorPane mit fx:id
@@ -180,10 +218,12 @@ public class HelloController {
     public void set3DBoxSize(double width, double height) {
         fx3DBox.setPrefWidth(width);
         fx3DBox.setPrefHeight(height);
+        appendLog("Box-Größe gesetzt auf Breite: " + width + ", Höhe: " + height + "\n", "text-log-info");
     }
 
     @FXML
     protected void onCloseClicked() {
+        appendLog("Anwendung wird geschlossen...\n", "text-log-info");
         // Schließt die Anwendung
         Platform.exit();
         System.exit(0);  // Optional: Beendet die JVM vollständig
