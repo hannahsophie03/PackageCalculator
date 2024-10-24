@@ -5,60 +5,35 @@ import config.ConfigManager;
 
 import java.io.IOException;
 import java.util.List;
+import java.util.Map;
 
 public class ShippingService {
 
-    /**
-     * Führt die Berechnung der Versandkosten durch.
-     *
-     * @param height Höhe des Pakets in cm
-     * @param width Breite des Pakets in cm
-     * @param depth Tiefe des Pakets in cm
-     * @param weight Gewicht des Pakets (in kg oder g)
-     * @param isGramsSelected Gibt an, ob das Gewicht in Gramm angegeben ist
-     * @return Das Ergebnis in Form eines Arrays von zwei Strings: [Preis, Dienstleistername]
-     * @throws IOException Fehler beim Laden der Konfigurationsdatei
-     */
-    public String[] calculateShipping(double height, double width, double depth, double weight, boolean isGramsSelected, boolean isKilogramsSelected) throws IOException {
-        // Wenn das Gewicht in Gramm angegeben ist, muss es in Kilogramm umgerechnet werden
-        if (isGramsSelected) {
-            System.out.println("Gewicht in g");
-            weight = weight / 1000.0;  // Gramm in Kilogramm umrechnen
-            System.out.println("Gewicht in kg: " + weight);
-        }
+    // Methode zur Berechnung der besten Versandoption
+    public String[] calculateShipping(double height, double width, double depth, double weight, List<Map<String, String>> serviceDataList) {
+        double gurtmass = height + 2 * width + 2 * depth;  // Berechnung des Gurtmaßes
+        String[] result = {"Kein Versanddienstleister kann dieses Paket versenden", ""};
+        double bestPrice = Double.MAX_VALUE;
 
-        if (isKilogramsSelected) {
-            System.out.println("Gewicht in kg");
-        }
+        // Durchlaufe die Liste der Dienstleisterdaten
+        for (Map<String, String> serviceData : serviceDataList) {
+            double maxHeight = Double.parseDouble(serviceData.get("Height"));
+            double maxWidth = Double.parseDouble(serviceData.get("Width"));
+            double maxDepth = Double.parseDouble(serviceData.get("Depth"));
+            double maxGurtmass = Double.parseDouble(serviceData.get("Gurtmass"));
+            double maxWeight = Double.parseDouble(serviceData.get("Weight"));
+            double price = Double.parseDouble(serviceData.get("Price"));
 
-        // Gewicht darf nicht negativ oder 0 sein
-        if (weight <= 0) {
-            return new String[] { "Ungültiges Gewicht", "" };
-        }
-
-        // Dienstleister laden
-        ConfigManager configManager = new ConfigManager();
-        List<Carrier> carriers = configManager.loadCarrier();
-
-        // Günstigsten Dienstleister finden
-        Carrier bestCarrier = null;
-        double lowestCost = Double.MAX_VALUE;
-
-        for (Carrier carrier : carriers) {
-            if (carrier.canShip(height, width, depth, weight)) {  // Maße in cm, Gewicht in kg
-                double cost = carrier.calculatePrice(weight);
-                if (cost < lowestCost) {
-                    lowestCost = cost;
-                    bestCarrier = carrier;
+            // Überprüfe, ob die Paketmaße und das Gewicht innerhalb der Grenzen liegen
+            if (height <= maxHeight && width <= maxWidth && depth <= maxDepth && gurtmass <= maxGurtmass && weight <= maxWeight) {
+                if (price < bestPrice) {
+                    bestPrice = price;
+                    result[0] = String.format("%.2f €", bestPrice / 100);  // Preis in Euro umrechnen
+                    result[1] = serviceData.get("Name");  // Dienstleistername
                 }
             }
         }
 
-        // Ergebnis zurückgeben
-        if (bestCarrier != null) {
-            return new String[] { String.format("%.2f €", lowestCost), bestCarrier.getName() };
-        } else {
-            return new String[] { "Kein Versanddienstleister kann dieses Paket versenden", "" };
-        }
+        return result;
     }
 }

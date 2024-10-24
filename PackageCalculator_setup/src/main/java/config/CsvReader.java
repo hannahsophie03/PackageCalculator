@@ -15,43 +15,48 @@ import java.util.List;
 import java.util.Map;
 
 public class CsvReader {
-
-    // Methode zum Einlesen der CSV-Datei
     public static List<Map<String, String>> readCsv(String filePath) {
-
         List<Map<String, String>> serviceDataList = new ArrayList<>();
 
         try (BufferedReader br = new BufferedReader(new FileReader(filePath))) {
             String line;
-
             while ((line = br.readLine()) != null) {
-                // Spalte trennen nach Semikolon
+                // Verwende das Semikolon als Trennzeichen
                 String[] values = line.split(";");
 
-                // Überprüfen, ob die Anzahl der Werte korrekt ist (7 Felder pro Zeile)
+                // Überprüfe, ob die Zeile die erwartete Anzahl an Werten enthält
                 if (values.length == 7) {
                     Map<String, String> serviceData = new HashMap<>();
                     serviceData.put("Name", values[0]);
-                    serviceData.put("MaxHeight", values[1]);
-                    serviceData.put("MaxWidth", values[2]);
-                    serviceData.put("MaxDepth", values[3]);
-                    serviceData.put("MinWeight", values[4]);  // Neu: MinWeight
-                    serviceData.put("MaxWeight", values[5]);
+                    serviceData.put("Height", values[1]);
+                    serviceData.put("Width", values[2]);
+                    serviceData.put("Depth", values[3]);
+                    serviceData.put("Girth", values[4]);
+                    serviceData.put("Weight", values[5]);
                     serviceData.put("Price", values[6]);
 
-                    // Füge die Map zur Liste hinzu
                     serviceDataList.add(serviceData);
+
+                    // Ausgabe in der Konsole zur Kontrolle
+                    System.out.println("Gelesene Daten: Name=" + values[0] +
+                            ", Height=" + values[1] +
+                            ", Width=" + values[2] +
+                            ", Depth=" + values[3] +
+                            ", Girth=" + values[4] +
+                            ", Weight=" + values[5] +
+                            ", Price=" + values[6]);
                 } else {
                     System.err.println("Ungültige Datenzeile: " + line);
                 }
             }
-
         } catch (IOException e) {
             e.printStackTrace();
         }
 
         return serviceDataList;
     }
+
+
 
 
 

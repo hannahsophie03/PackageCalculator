@@ -1,6 +1,7 @@
 package de.dhbwstuttgart.packagecalculator;
 
 import calculation.ShippingService;
+import config.CsvReader;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -15,6 +16,8 @@ import javafx.scene.text.TextFlow;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.util.List;
+import java.util.Map;
 
 public class HelloController {
 
@@ -90,7 +93,8 @@ public class HelloController {
 
             // Versandlogik an ShippingService übergeben
             ShippingService shippingService = new ShippingService();
-            String[] result = shippingService.calculateShipping(height, width, depth, weight, isGramsSelected, isKilogramsSelected);
+            List<Map<String, String>> serviceDataList = CsvReader.readCsv("/de/dhbwstuttgart/packagecalculator/config.csv"); // Die CSV-Datei laden
+            String[] result = shippingService.calculateShipping(height, width, depth, weight, serviceDataList);
 
             // Versand-Ergebnis anzeigen
             if (!result[0].equals("Ungültiges Gewicht") && !result[0].equals("Kein Versanddienstleister kann dieses Paket versenden")) {
@@ -102,6 +106,7 @@ public class HelloController {
                 priceText.setText("");  // Preisfeld leeren, wenn kein Dienstleister gefunden wurde
                 appendLog("Fehler: " + result[0] + "\n", "text-log-error");  // Log in rot
             }
+
             // Skalierungsfaktor, um die Box größer darzustellen
             double scaleFactor = 10.0;  // Erhöhe diesen Wert, um die Box größer zu machen
 
@@ -122,18 +127,13 @@ public class HelloController {
                 resultText.setText("Bitte geben Sie positive Werte für Breite und Höhe ein.");
             }
 
-
-
         } catch (NumberFormatException e) {
             resultText.setText("Bitte geben Sie gültige Zahlenwerte ein.");
             priceText.setText("");  // Preisfeld leeren bei Fehler
             appendLog("Fehler: Ungültige Zahlenwerte eingegeben.\n", "text-log-error");  // Log in rot
-        } catch (IOException e) {
-            resultText.setText("Fehler beim Laden der Konfigurationsdatei.");
-            priceText.setText("");  // Preisfeld leeren bei Fehler
-            appendLog("Fehler: Problem beim Laden der Konfigurationsdatei.\n", "text-log-error");  // Log in rot
         }
     }
+
 
 
     // Methode zur dynamischen Anpassung der Label-Positionen an den Kanten des Rechtecks

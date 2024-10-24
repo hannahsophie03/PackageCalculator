@@ -28,11 +28,16 @@
     <Label layoutX="50" layoutY="220" text="Maximales Gewicht (kg):" />
     <TextField fx:id="maxWeightField" layoutX="200" layoutY="220" />
 
-    <Label layoutX="50" layoutY="260" text="Preis pro kg (€):" />
-    <TextField fx:id="pricePerKgField" layoutX="200" layoutY="260" />
+    <TextField fx:id="maxGirthField" layoutX="200.0" layoutY="258.0" />
+    <Label layoutX="50.0" layoutY="262.0" text="Maximales Gurtmaß (cm):" />
 
-    <Button layoutX="200" layoutY="300" onAction="#onSaveClicked" text="Speichern" />
+    <Label layoutX="50.0" layoutY="298.0" text="Preis pro kg (€):" />
+    <TextField fx:id="pricePerKgField" layoutX="200.0" layoutY="294.0" />
+
+    <Button layoutX="200.0" layoutY="361.0" onAction="#onSaveClicked" text="Speichern" />
     <Button layoutX="1127.0" layoutY="14.0" onAction="#onCloseClicked" prefHeight="35.0" prefWidth="98.0" text="Schließen" textFill="#f70000" />
+   <Label layoutX="50.0" layoutY="262.0" />
+
 
 
 

@@ -15,6 +15,7 @@ import java.util.Map;
 public class SettingsController {
 
     public TextFlow logTextFlow;
+    public TextField maxGirthField;
     @FXML
     private ComboBox<String> serviceProviderComboBox;
 
